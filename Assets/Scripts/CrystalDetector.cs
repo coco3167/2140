@@ -1,9 +1,14 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Camera))]
 public class CrystalDetector : MonoBehaviour
 {
     [SerializeField] private LayerMask psymaniteLayerMask;
+    
+    [Header("Cursor")]
+    [SerializeField] private Image cursorImage;
+    [SerializeField] private Color baseColor, lookingColor;
     
     private Ray m_detectingRay;
     private RaycastHit[] m_hitsBuffer = new RaycastHit[5];
@@ -27,6 +32,8 @@ public class CrystalDetector : MonoBehaviour
         {
             m_hitsBuffer[loop].transform.GetComponent<Psymanite>().OnLookedAt();
         }
+
+        cursorImage.color = hits > 0 ? lookingColor : baseColor;
     }
 
     private void OnDrawGizmos()
