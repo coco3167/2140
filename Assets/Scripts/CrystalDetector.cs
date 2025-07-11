@@ -7,7 +7,7 @@ public class CrystalDetector : MonoBehaviour
     [SerializeField] private LayerMask psymaniteLayerMask;
     
     private Ray m_detectingRay;
-    private RaycastHit m_hit;
+    private RaycastHit[] m_hitsBuffer = new RaycastHit[5];
 
     private Camera m_camera;
 
@@ -21,9 +21,12 @@ public class CrystalDetector : MonoBehaviour
     private void FixedUpdate()
     {
         m_detectingRay = m_camera.ViewportPointToRay(CameraCenter);
-        if (Physics.Raycast(m_detectingRay, out m_hit, Mathf.Infinity, psymaniteLayerMask, QueryTriggerInteraction.Collide))
+
+        int hits = Physics.RaycastNonAlloc(m_detectingRay, m_hitsBuffer, Mathf.Infinity, psymaniteLayerMask,
+            QueryTriggerInteraction.Collide);
+        for (int loop = 0; loop < hits; loop++)
         {
-            m_hit.transform.GetComponent<Psymanite>().LookAt(this, EventArgs.Empty);
+            m_hitsBuffer[loop].transform.GetComponent<Psymanite>().LookAt(this, EventArgs.Empty);
         }
     }
 

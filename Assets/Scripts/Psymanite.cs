@@ -12,7 +12,7 @@ public class Psymanite : MonoBehaviour
 
     private void OnLookedAt(object sender, EventArgs e)
     {
-        Debug.Log("looked at");
+        Debug.Log("looked at", this);
     }
 
     public void LookAt(object sender, EventArgs e)
