@@ -1,22 +1,35 @@
-using System;
 using UnityEngine;
 
 public class Psymanite : MonoBehaviour
 {
-    private event EventHandler LookedAt;
 
+    [SerializeField, Range(0, 1)] private float lookedAtSpeed = .5f;
+    private static readonly int LookingPercentage = Shader.PropertyToID("_LookingPercentage");
+    private Material m_material;
+    private float m_lookingPercentage;
+
+    private bool m_finishedLooking;
+    
+    
     private void Awake()
     {
-        LookedAt += OnLookedAt;
+        m_material = GetComponent<MeshRenderer>().material;
+        Debug.Log(m_material.GetFloat(LookingPercentage));
     }
 
-    private void OnLookedAt(object sender, EventArgs e)
+    private void OnDestroy()
     {
-        Debug.Log("looked at", this);
+        Destroy(m_material);
     }
 
-    public void LookAt(object sender, EventArgs e)
+    public void OnLookedAt()
     {
-        LookedAt?.Invoke(this, EventArgs.Empty);
+        if(m_finishedLooking)
+            return;
+        
+        m_lookingPercentage += lookedAtSpeed * Time.deltaTime;
+        m_material.SetFloat(LookingPercentage, m_lookingPercentage);
+
+        m_finishedLooking = m_lookingPercentage >= 1;
     }
 }

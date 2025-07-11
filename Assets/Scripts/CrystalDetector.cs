@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
@@ -26,7 +25,7 @@ public class CrystalDetector : MonoBehaviour
             QueryTriggerInteraction.Collide);
         for (int loop = 0; loop < hits; loop++)
         {
-            m_hitsBuffer[loop].transform.GetComponent<Psymanite>().LookAt(this, EventArgs.Empty);
+            m_hitsBuffer[loop].transform.GetComponent<Psymanite>().OnLookedAt();
         }
     }
 
