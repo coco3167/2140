@@ -1,0 +1,34 @@
+using System;
+using UnityEngine;
+
+[RequireComponent(typeof(Camera))]
+public class CrystalDetector : MonoBehaviour
+{
+    [SerializeField] private LayerMask psymaniteLayerMask;
+    
+    private Ray m_detectingRay;
+    private RaycastHit m_hit;
+
+    private Camera m_camera;
+
+    private static readonly Vector3 CameraCenter = new(.5f, .5f, 0);
+
+    private void Awake()
+    {
+        m_camera = GetComponent<Camera>();
+    }
+
+    private void FixedUpdate()
+    {
+        m_detectingRay = m_camera.ViewportPointToRay(CameraCenter);
+        if (Physics.Raycast(m_detectingRay, out m_hit, Mathf.Infinity, psymaniteLayerMask, QueryTriggerInteraction.Collide))
+        {
+            m_hit.transform.GetComponent<Psymanite>().LookAt(this, EventArgs.Empty);
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawRay(m_detectingRay);
+    }
+}
