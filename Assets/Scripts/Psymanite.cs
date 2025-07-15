@@ -1,10 +1,13 @@
+using System;
+using DG.Tweening;
 using UnityEngine;
 
 public class Psymanite : MonoBehaviour
 {
 
-    [SerializeField, Range(0, 1)] private float lookedAtSpeed = .5f;
-    private static readonly int LookingPercentage = Shader.PropertyToID("_LookingPercentage");
+    //[SerializeField, Range(0, 1)] private float lookedAtSpeed = .5f;
+    [SerializeField] private float transitionTime = 2f;
+    private static readonly string LookingPercentage = "_LookingPercentage";
     private Material m_material;
     private float m_lookingPercentage;
 
@@ -22,14 +25,21 @@ public class Psymanite : MonoBehaviour
         Destroy(m_material);
     }
 
-    public void OnLookedAt()
+    public void OnLookedAt(bool shouldFinishLooking)
     {
         if(m_finishedLooking)
             return;
-        
-        m_lookingPercentage += lookedAtSpeed * Time.deltaTime;
-        m_material.SetFloat(LookingPercentage, m_lookingPercentage);
 
-        m_finishedLooking = m_lookingPercentage >= 1;
+        m_finishedLooking = shouldFinishLooking;
+
+        if (m_finishedLooking)
+        {
+            m_material.DOFloat(1, LookingPercentage, transitionTime).Play();
+        }
+
+        // m_lookingPercentage += lookedAtSpeed * Time.deltaTime;
+        // m_material.SetFloat(LookingPercentage, m_lookingPercentage);
+
+        //m_finishedLooking = m_lookingPercentage >= 1;
     }
 }

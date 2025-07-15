@@ -299,7 +299,9 @@ MonoBehaviour:
   cursorImage: {fileID: 8631262279047636100}
   baseColor: {r: 1, g: 1, b: 1, a: 0.5019608}
   lookingColor: {r: 0.6870125, g: 0.90099996, b: 0.22524999, a: 1}
-  transitionTime: 0.5
+  losangeTime: 0.5
+  scaleTime: 6
+  maxScale: 2
 --- !u!114 &7742399284034095844
 MonoBehaviour:
   m_ObjectHideFlags: 0
