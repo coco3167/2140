@@ -28,9 +28,11 @@ public class CrystalDetector : MonoBehaviour
 
         int hits = Physics.RaycastNonAlloc(m_detectingRay, m_hitsBuffer, Mathf.Infinity, psymaniteLayerMask,
             QueryTriggerInteraction.Collide);
+
         for (int loop = 0; loop < hits; loop++)
         {
-            m_hitsBuffer[loop].transform.GetComponent<Psymanite>().OnLookedAt();
+            if(m_hitsBuffer[loop].transform.TryGetComponent(out Psymanite psymanite))
+                psymanite.OnLookedAt();
         }
 
         cursorImage.color = hits > 0 ? lookingColor : baseColor;
