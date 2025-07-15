@@ -14,6 +14,6 @@ public class GameManager : MonoBehaviour
 
     private void Restart(InputAction.CallbackContext context)
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
