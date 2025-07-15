@@ -299,6 +299,7 @@ MonoBehaviour:
   cursorImage: {fileID: 8631262279047636100}
   baseColor: {r: 1, g: 1, b: 1, a: 0.5019608}
   lookingColor: {r: 0.6870125, g: 0.90099996, b: 0.22524999, a: 1}
+  transitionTime: 0.5
 --- !u!114 &7742399284034095844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -410,7 +411,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -418,7 +419,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 0.2
+  m_PixelsPerUnitMultiplier: 0.42
 --- !u!114 &1002079689924008318
 MonoBehaviour:
   m_ObjectHideFlags: 0
