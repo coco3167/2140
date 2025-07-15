@@ -1,4 +1,3 @@
-using System;
 using DG.Tweening;
 using UnityEngine;
 
@@ -25,17 +24,20 @@ public class Psymanite : MonoBehaviour
         Destroy(m_material);
     }
 
-    public void OnLookedAt(bool shouldFinishLooking)
+    public bool OnLookedAt(bool shouldFinishLooking)
     {
         if(m_finishedLooking)
-            return;
+            return false;
 
         m_finishedLooking = shouldFinishLooking;
 
         if (m_finishedLooking)
         {
             m_material.DOFloat(1, LookingPercentage, transitionTime).Play();
+            return true;
         }
+
+        return false;
 
         // m_lookingPercentage += lookedAtSpeed * Time.deltaTime;
         // m_material.SetFloat(LookingPercentage, m_lookingPercentage);

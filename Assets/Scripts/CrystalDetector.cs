@@ -1,4 +1,5 @@
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,12 +13,17 @@ public class CrystalDetector : MonoBehaviour
     [SerializeField] private Color baseColor, lookingColor;
     [SerializeField] private float losangeTime, scaleTime;
     [SerializeField] private float maxScale;
+
+    [Header("Time before discovery")]
+    [SerializeField] private TextMeshProUGUI timeText;
+    
+    
     
     private Ray m_detectingRay;
     private RaycastHit[] m_hitsBuffer = new RaycastHit[5];
 
     private Sequence m_lookedAtSequence, m_lockedSequence;
-
+    
     private Camera m_camera;
 
     private static readonly Vector3 CameraCenter = new(.5f, .5f, 0);
@@ -25,6 +31,7 @@ public class CrystalDetector : MonoBehaviour
     private void Awake()
     {
         m_camera = GetComponent<Camera>();
+        timeText.text = "";
 
         m_lookedAtSequence = DOTween.Sequence();
         m_lookedAtSequence
@@ -52,7 +59,11 @@ public class CrystalDetector : MonoBehaviour
             if (m_hitsBuffer[loop].transform.TryGetComponent(out Psymanite psymanite))
             {
                 hasTouchedPsymanite = true;
-                psymanite.OnLookedAt(m_lockedSequence.IsComplete());
+                
+                if (psymanite.OnLookedAt(m_lockedSequence.IsComplete()))
+                {
+                    timeText.text = $"Filon trouvé en moins de {Mathf.Round(Time.realtimeSinceStartup)}s";
+                }
             }
         }
 
