@@ -6,19 +6,24 @@ public class Psymanite : MonoBehaviour
 
     //[SerializeField, Range(0, 1)] private float lookedAtSpeed = .5f;
     [SerializeField] private float transitionTime = 2f;
-    [SerializeField] private GameObject line;
+    [SerializeField] private LineRenderer line;
+    [SerializeField] private Color lineStartColor;
     
     private static readonly string LookingPercentage = "_LookingPercentage";
     private Material m_material;
     private float m_lookingPercentage;
-
     private bool m_finishedLooking;
+
+    private Sequence m_lineAppearing;
     
     
     private void Awake()
     {
         m_material = GetComponent<MeshRenderer>().material;
-        line.SetActive(false);
+        line.gameObject.SetActive(false);
+
+        m_lineAppearing = DOTween.Sequence()
+            .Append(line.DOColor(new Color2(Color.clear, Color.clear), new Color2(lineStartColor, lineStartColor), transitionTime));
     }
 
     private void OnDestroy()
@@ -36,7 +41,8 @@ public class Psymanite : MonoBehaviour
         if (m_finishedLooking)
         {
             m_material.DOFloat(1, LookingPercentage, transitionTime).Play();
-            line.SetActive(true);
+            line.gameObject.SetActive(true);
+            m_lineAppearing.Play();
             return true;
         }
 

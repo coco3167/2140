@@ -123,7 +123,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transitionTime: 2
-  line: {fileID: 3929466873024846467}
+  line: {fileID: 8823946854809006758}
+  lineStartColor: {r: 1, g: 0.5019608, b: 0, a: 1}
 --- !u!1 &3929466873024846467
 GameObject:
   m_ObjectHideFlags: 0
