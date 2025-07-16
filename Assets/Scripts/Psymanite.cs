@@ -12,7 +12,7 @@ public class Psymanite : MonoBehaviour
     private static readonly string LookingPercentage = "_LookingPercentage";
     private Material m_material;
     private float m_lookingPercentage;
-    private bool m_finishedLooking;
+    public bool FinishedLooking { get; private set; }
 
     private Sequence m_lineAppearing;
     
@@ -33,12 +33,12 @@ public class Psymanite : MonoBehaviour
 
     public bool OnLookedAt(bool shouldFinishLooking)
     {
-        if(m_finishedLooking)
+        if(FinishedLooking)
             return false;
 
-        m_finishedLooking = shouldFinishLooking;
+        FinishedLooking = shouldFinishLooking;
 
-        if (m_finishedLooking)
+        if (FinishedLooking)
         {
             m_material.DOFloat(1, LookingPercentage, transitionTime).Play();
             line.gameObject.SetActive(true);
